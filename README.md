@@ -1,7 +1,7 @@
 # goldmark-obsidian
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/powerman/goldmark-obsidian.svg)](https://pkg.go.dev/github.com/powerman/goldmark-obsidian)
-[![CI/CD](https://github.com/powerman/goldmark-obsidian/workflows/CI/CD/badge.svg?event=push)](https://github.com/powerman/goldmark-obsidian/actions?query=workflow%3ACI%2FCD)
+[![CI/CD](https://github.com/powerman/goldmark-obsidian/actions/workflows/CI&CD.yml/badge.svg)](https://github.com/powerman/goldmark-obsidian/actions/workflows/CI&CD.yml)
 [![Coverage Status](https://coveralls.io/repos/github/powerman/goldmark-obsidian/badge.svg?branch=master)](https://coveralls.io/github/powerman/goldmark-obsidian?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/powerman/goldmark-obsidian)](https://goreportcard.com/report/github.com/powerman/goldmark-obsidian)
 [![Release](https://img.shields.io/github/v/release/powerman/goldmark-obsidian)](https://github.com/powerman/goldmark-obsidian/releases/latest)
