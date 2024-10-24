@@ -1,0 +1,407 @@
+100: Leaf block / Thematic breaks: not supported
+//- - - - - - - - -//
+--- ^good-but-not-a-thematic-break
+//- - - - - - - - -//
+<p id="^good-but-not-a-thematic-break">---</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+101: Leaf block / ATX headings: supported
+//- - - - - - - - -//
+## Title ^good
+//- - - - - - - - -//
+<h2 id="^good">Title</h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+102: Leaf block / Setext headings: supported
+//- - - - - - - - -//
+Title ^good
+-----
+//- - - - - - - - -//
+<h2 id="^good">Title</h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+103: Leaf block / Indented code block: not supported
+//- - - - - - - - -//
+    ^bad
+//- - - - - - - - -//
+<pre><code>^bad
+</code></pre>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+104: Leaf block / Fenced code block: not supported
+//- - - - - - - - -//
+```sh
+^bad
+```
+//- - - - - - - - -//
+<pre><code class="language-sh">^bad
+</code></pre>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+105: Leaf block / HTML block: not supported
+//- - - - - - - - -//
+<div>
+^bad
+</div>
+//- - - - - - - - -//
+<div>
+^bad
+</div>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+106: Leaf block / Paragraphs: supported
+//- - - - - - - - -//
+Single line. ^good
+//- - - - - - - - -//
+<p id="^good">Single line.</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+107: Container block / Block quotes: supported
+//- - - - - - - - -//
+> Quote. ^good
+//- - - - - - - - -//
+<blockquote id="^good"><p>Quote.</p>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+108: Container block / List items: supported
+//- - - - - - - - -//
+- Item ^good
+//- - - - - - - - -//
+<ul>
+<li id="^good">Item</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+200: Multiline / Paragraph
+//- - - - - - - - -//
+Multi
+line. ^good
+//- - - - - - - - -//
+<p id="^good">Multi
+line.</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+201: Multiline / Block quote
+//- - - - - - - - -//
+> Quote.
+> Multiline. ^good-1
+
+> Quote.
+>
+> Multiline. ^good-2
+
+> Quote.
+>
+> Multiline.
+> ^good-3
+
+> Quote.
+>
+> Multiline.
+>
+> ^good-4
+//- - - - - - - - -//
+<blockquote id="^good-1"><p>Quote.
+Multiline.</p>
+</blockquote>
+<blockquote id="^good-2"><p>Quote.</p>
+<p>Multiline.</p>
+</blockquote>
+<blockquote id="^good-3"><p>Quote.</p>
+<p>Multiline.
+</p>
+</blockquote>
+<blockquote id="^good-4"><p>Quote.</p>
+<p>Multiline.</p>
+<p></p>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+202: Multiline / List item
+//- - - - - - - - -//
+- Multi.
+  Line. ^good-1
+
+* Multi.
+
+  Line. ^good-2
+//- - - - - - - - -//
+<ul>
+<li id="^good-1">Multi.
+Line.</li>
+</ul>
+<ul>
+<li id="^good-2">
+<p>Multi.</p>
+<p>Line.</p>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+300: Contained in / Block quotes: not supported
+//- - - - - - - - -//
+> ## Title ^bad
+
+> Title ^bad
+> -----
+
+> > Quote ^bad
+
+> - Item ^bad
+//- - - - - - - - -//
+<blockquote>
+<h2>Title</h2>
+</blockquote>
+<blockquote>
+<h2>Title</h2>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>Quote</p>
+</blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>Item</li>
+</ul>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+301: Contained in / List item: supported
+//- - - - - - - - -//
+- Item ^good-1
+  - Subitem ^good-2
+//- - - - - - - - -//
+<ul>
+<li id="^good-1">Item
+<ul>
+<li id="^good-2">Subitem</li>
+</ul>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+400: In the middle / ATH headings
+//- - - - - - - - -//
+## Title ^bad #tag
+
+## Title ^bad #tag ^good
+//- - - - - - - - -//
+<h2>Title ^bad #tag</h2>
+<h2 id="^good">Title ^bad #tag</h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+401: In the middle / Setext headings
+//- - - - - - - - -//
+Title ^bad #tag
+-----
+
+Title ^bad #tag ^good
+-----
+//- - - - - - - - -//
+<h2>Title ^bad #tag</h2>
+<h2 id="^good">Title ^bad #tag</h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+402: In the middle / Paragraphs
+//- - - - - - - - -//
+Multi ^bad
+line.
+
+Multi ^bad
+line. ^good
+//- - - - - - - - -//
+<p>Multi ^bad
+line.</p>
+<p id="^good">Multi ^bad
+line.</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+403: In the middle / Block quotes
+//- - - - - - - - -//
+> Multi ^bad
+> line.
+
+> Multi ^bad
+> line. ^good
+//- - - - - - - - -//
+<blockquote>
+<p>Multi ^bad
+line.</p>
+</blockquote>
+<blockquote id="^good"><p>Multi ^bad
+line.</p>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+404: In the middle / List items
+//- - - - - - - - -//
+- Multi ^bad
+  line.
+
+* Multi ^bad
+  line. ^good
+//- - - - - - - - -//
+<ul>
+<li>Multi ^bad
+line.</li>
+</ul>
+<ul>
+<li id="^good">Multi ^bad
+line.</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+500: Delimiter / ATH headings
+//- - - - - - - - -//
+## Title^bad
+
+## `Title`^good
+//- - - - - - - - -//
+<h2>Title^bad</h2>
+<h2 id="^good"><code>Title</code></h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+501: Delimiter / Setext headings
+//- - - - - - - - -//
+Title^bad
+-----
+
+`Title`^good
+-------
+//- - - - - - - - -//
+<h2>Title^bad</h2>
+<h2 id="^good"><code>Title</code></h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+502: Delimiter / Paragraphs
+//- - - - - - - - -//
+Line.^bad
+
+`Line`.^bad
+
+`Line.`^good
+//- - - - - - - - -//
+<p>Line.^bad</p>
+<p><code>Line</code>.^bad</p>
+<p id="^good"><code>Line.</code></p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+503: Delimiter / Block quotes
+//- - - - - - - - -//
+> Line.^bad
+
+> `Line`.^bad
+
+> `Line.`^good
+//- - - - - - - - -//
+<blockquote>
+<p>Line.^bad</p>
+</blockquote>
+<blockquote>
+<p><code>Line</code>.^bad</p>
+</blockquote>
+<blockquote id="^good"><p><code>Line.</code></p>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+504: Delimiter / List items
+//- - - - - - - - -//
+- Line.^bad
+- `Line`.^bad
+- `Line.`^good
+//- - - - - - - - -//
+<ul>
+<li>Line.^bad</li>
+<li><code>Line</code>.^bad</li>
+<li id="^good"><code>Line.</code></li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+600: Empty / Paragraphs
+//- - - - - - - - -//
+^bad
+//- - - - - - - - -//
+<p></p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+601: Empty / Block quotes
+//- - - - - - - - -//
+> ^good
+//- - - - - - - - -//
+<blockquote id="^good"><p></p>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+602: Empty / List items
+//- - - - - - - - -//
+- ^good
+//- - - - - - - - -//
+<ul>
+<li id="^good"></li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+900: Complex list
+//- - - - - - - - -//
+- Item `code`^good-1
+  - Subitem
+    - Multi.
+      Line. ^bad
+      Item. ^good-2
+
+* Multi.
+
+  Paragraph. ^bad
+
+  Item. ^good-3
+//- - - - - - - - -//
+<ul>
+<li id="^good-1">Item <code>code</code>
+<ul>
+<li>Subitem
+<ul>
+<li id="^good-2">Multi.
+Line. ^bad
+Item.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li id="^good-3">
+<p>Multi.</p>
+<p>Paragraph.</p>
+<p>Item.</p>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//

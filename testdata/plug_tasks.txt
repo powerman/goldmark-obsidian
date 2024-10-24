@@ -1,0 +1,269 @@
+100: Basic / Task can be done
+//- - - - - - - - -//
+- [ ] foo
+- [x] bar
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+101: Basic / Task can have subtasks
+//- - - - - - - - -//
+- [x] foo
+  - [ ] bar
+  - [x] baz
+- [ ] bim
+//- - - - - - - - -//
+<ul>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> foo
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> bar</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> baz</li>
+</ul>
+</li>
+<li data-task=""><input disabled="" type="checkbox"> bim</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+102: Basic / Not a task
+//- - - - - - - - -//
+- test[x]=[x]
+//- - - - - - - - -//
+<ul>
+<li>test[x]=[x]</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+103: Basic / Task may contain anything
+//- - - - - - - - -//
++ [x][x]
+//- - - - - - - - -//
+<ul>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> [x]</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+104: Basic / Task can be inside blockquote
+//- - - - - - - - -//
+> - [ ] foo
+> - [x] bar
+//- - - - - - - - -//
+<blockquote>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+105: Basic / Task can be inside multi-level blockquote
+//- - - - - - - - -//
+> > - [ ] foo
+> > - [x] bar
+//- - - - - - - - -//
+<blockquote>
+<blockquote>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+</blockquote>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+200: Prop / Only task have properties
+//- - - - - - - - -//
+- Item with wrong date 📅 2023-02-29
+- Item with extra   spaces   📅   2000-12-31
+- [ ] Task with wrong date 📅 2023-02-29
+- [ ] Task with extra   spaces   📅   2000-12-31
+//- - - - - - - - -//
+<ul>
+<li>Item with wrong date 📅 2023-02-29</li>
+<li>Item with extra   spaces   📅   2000-12-31</li>
+<li data-task=""><input disabled="" type="checkbox"> Task with wrong date</li>
+<li data-task=""><input disabled="" type="checkbox"> Task with extra   spaces 📅 2000-12-31</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+201: Prop / Valid properties renders with single space
+//- - - - - - - - -//
+- [ ] Lowest⏬   
+- [ ] Low🔽
+- [ ] Medium   🔼
+- [ ] High⏫
+- [ ] Highest🔺
+- [ ] Dependency 1🆔1
+- [ ] Dependency 2   🆔  abc
+- [ ] Dependent one⛔1
+- [ ] Dependent two   ⛔   def,2
+- [ ] Task 1 📅 2000-01-01   
+- [ ] Task 2 ⏳2000-01-02
+- [ ] Task 3🛫 2000-01-03
+- [ ] Task 4➕2000-01-04
+- [ ] Task   5   ✅   2000-01-05
+- [ ] Task   ❌   2000-01-06   6   ❌   2000-01-06
+- [ ] Recurrning   🔁   every week on Monday,Tuesday
+- [ ] Recurrning stop🔁every day
+- [ ] On completion   🏁   KEep
+- [ ] On completion🏁delete
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> Lowest ⏬</li>
+<li data-task=""><input disabled="" type="checkbox"> Low 🔽</li>
+<li data-task=""><input disabled="" type="checkbox"> Medium 🔼</li>
+<li data-task=""><input disabled="" type="checkbox"> High ⏫</li>
+<li data-task=""><input disabled="" type="checkbox"> Highest 🔺</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependency 1 🆔 1</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependency 2 🆔 abc</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependent one ⛔ 1</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependent two ⛔ def,2</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 1 📅 2000-01-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 2 ⏳ 2000-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 3 🛫 2000-01-03</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 4 ➕ 2000-01-04</li>
+<li data-task=""><input disabled="" type="checkbox"> Task   5 ✅ 2000-01-05</li>
+<li data-task=""><input disabled="" type="checkbox"> Task   ❌   2000-01-06   6 ❌ 2000-01-06</li>
+<li data-task=""><input disabled="" type="checkbox"> Recurrning 🔁 every week on Monday,Tuesday</li>
+<li data-task=""><input disabled="" type="checkbox"> Recurrning stop 🔁 every day</li>
+<li data-task=""><input disabled="" type="checkbox"> On completion 🏁 keep</li>
+<li data-task=""><input disabled="" type="checkbox"> On completion 🏁 delete</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+202: Prop / Invalid properties are removed
+//- - - - - - - - -//
+- [ ] Task 1   📅 2023-02-29
+- [ ] Task 2   ⏳ 2023-02-29
+- [ ] Task 3   🛫 2023-02-29
+- [ ] Task 4   ➕ 2023-02-29
+- [ ] Task 5   ✅ 2023-02-29
+- [ ] Task 6   ❌ 2023-02-29
+- [ ] Task 7   🏁 unknown
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> Task 1</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 2</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 3</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 4</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 5</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 6</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 7</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+203: Prop / Extra properties are removed
+//- - - - - - - - -//
+- [ ] Prio ⏬ 🔽 🔼 ⏫ 🔺
+- [ ] Dependency 🆔 abc 🆔 def
+- [ ] Dependent ⛔ abc ⛔ def
+- [ ] Task 1 📅 2024-01-01 📅 2024-01-02
+- [ ] Task 2 ⏳ 2024-02-01 ⏳ 2024-02-02
+- [ ] Task 3 🛫 2024-03-01 🛫 2024-03-02
+- [ ] Task 4 ➕ 2024-04-01 ➕ 2024-04-02
+- [ ] Task 5 ✅ 2024-05-01 ✅ 2024-05-02
+- [ ] Task 6 ❌ 2024-06-01 ❌ 2024-06-02
+- [ ] Recurring 🔁 every mon,tue! 🔁 every day
+- [ ] On completion 🏁 keep 🏁 delete
+- [ ] Invalid first 📅 2023-02-29 📅 2024-01-01
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> Prio ⏬</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependency 🆔 abc</li>
+<li data-task=""><input disabled="" type="checkbox"> Dependent ⛔ abc</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 1 📅 2024-01-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 2 ⏳ 2024-02-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 3 🛫 2024-03-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 4 ➕ 2024-04-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 5 ✅ 2024-05-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Task 6 ❌ 2024-06-01</li>
+<li data-task=""><input disabled="" type="checkbox"> Recurring 🔁 every mon,tue!</li>
+<li data-task=""><input disabled="" type="checkbox"> On completion 🏁 keep</li>
+<li data-task=""><input disabled="" type="checkbox"> Invalid first</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+204: Prop / All valid properties must be at the end of line
+//- - - - - - - - -//
+- [ ] Tag   🔺   #tag'+;=[\\]`~   📅 2024-01-02
+- [ ] BlockID   🔺   📅 2024-01-02   ^Block-1
+- [ ] Extra   🔺   text   📅 2024-01-02
+- [ ] No arg 1   🔺   🆔   📅 2024-01-02
+- [ ] No arg 2   🔺   ⛔   📅 2024-01-02
+- [ ] Bad arg 1   🔺   🆔 1,2   📅 2024-01-02
+- [ ] Bad arg 2   🔺   ⛔ 1:2   📅 2024-01-02
+- [ ] Bad arg 3   🔺   📅 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 4   🔺   ⏳ 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 5   🔺   🛫 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 6   🔺   ➕ 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 7   🔺   ✅ 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 8   🔺   ❌ 2024/01/02   📅 2024-01-02
+- [ ] Bad arg 9   🔺   🔁 every mon:tue   📅 2024-01-02
+- [ ] Bad arg 0   🔺   🏁 1   📅 2024-01-02
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> Tag 🔺#tag'+;=[\]`~ 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> BlockID 🔺 📅 2024-01-02^Block-1</li>
+<li data-task=""><input disabled="" type="checkbox"> Extra   🔺   text 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> No arg 1   🔺   🆔 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> No arg 2   🔺   ⛔ 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 1   🔺   🆔 1,2 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 2   🔺   ⛔ 1:2 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 3   🔺   📅 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 4   🔺   ⏳ 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 5   🔺   🛫 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 6   🔺   ➕ 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 7   🔺   ✅ 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 8   🔺   ❌ 2024/01/02 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 9   🔺   🔁 every mon:tue 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Bad arg 0   🔺   🏁 1 📅 2024-01-02</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+205: Prop / Parsing only first line
+//- - - - - - - - -//
+
+- [ ] Line 1   🔺
+  Line 2   🔺
+- [ ] Emphasis _1   🔺
+  Line_ 2   🔺
+
+* [ ] Paragraph 1   🔺
+
+  Paragraph 2   🔺
+
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> Line 1 🔺Line 2   🔺</li>
+<li data-task=""><input disabled="" type="checkbox"> Emphasis <em>1 🔺Line</em> 2   🔺</li>
+</ul>
+<ul>
+<li data-task="">
+<p><input disabled="" type="checkbox"> Paragraph 1 🔺</p>
+<p>Paragraph 2   🔺</p>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+206: Prop / All
+//- - - - - - - - -//
+- [ ]⏬🔽🔼⏫🔺🆔1⛔1📅2000-01-01⏳2000-01-02🛫2000-01-03➕2000-01-04✅2000-01-05❌2000-01-06❌2000-01-07🔁everyMon,Tue🔁everyday🏁KEep🏁delete
+//- - - - - - - - -//
+<ul>
+<li data-task=""><input disabled="" type="checkbox">  ⏬ 🆔 1 ⛔ 1 📅 2000-01-01 ⏳ 2000-01-02 🛫 2000-01-03 ➕ 2000-01-04 ✅ 2000-01-05 ❌ 2000-01-06 🔁 everyMon,Tue 🏁 keep</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
