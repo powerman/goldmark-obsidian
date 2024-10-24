@@ -1,0 +1,4 @@
+# Doc: https://EditorConfig.org
+
+[*.txt]
+trim_trailing_whitespace = false

@@ -1,0 +1,22 @@
+1: Custom classes and statuses
+//- - - - - - - - -//
+- [ ] todo
+- [?] unknown/todo
+- [/] in progress
+- [~] in progress 2
+- [x] done
+- [X] done 2
+- [-] cancelled
+- [b] not a task
+//- - - - - - - - -//
+<ul>
+<li data-tasks="" class="tasks-item not-checked"><input disabled="" type="checkbox" class="tasks-checkbox"> todo</li>
+<li data-tasks="?" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> unknown/todo</li>
+<li data-tasks="/" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> in progress</li>
+<li data-tasks="~" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> in progress 2</li>
+<li data-tasks="x" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> done</li>
+<li data-tasks="X" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> done 2</li>
+<li data-tasks="-" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> cancelled</li>
+<li data-tasks="b" class="tasks-item"><input checked="" disabled="" type="checkbox" class="tasks-checkbox"> not a task</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//

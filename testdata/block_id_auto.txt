@@ -1,0 +1,24 @@
+1: Custom ID have higher priority than auto-id
+//- - - - - - - - -//
+## Title 1
+
+Title 1 setext
+--------------
+
+## Title 2 ^good-2
+
+Title 2 setext ^good-2-setext
+--------------
+
+## Title 3 ^bad-3 !
+
+Title 3 setext ^bad-3 !
+--------------
+//- - - - - - - - -//
+<h2 id="title-1">Title 1</h2>
+<h2 id="title-1-setext">Title 1 setext</h2>
+<h2 id="^good-2">Title 2</h2>
+<h2 id="^good-2-setext">Title 2 setext</h2>
+<h2 id="title-3-bad-3-">Title 3 ^bad-3 !</h2>
+<h2 id="title-3-setext-bad-3-">Title 3 setext ^bad-3 !</h2>
+//= = = = = = = = = = = = = = = = = = = = = = = =//

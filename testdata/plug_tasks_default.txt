@@ -1,0 +1,133 @@
+1: Classes / Tight list
+//- - - - - - - - -//
+- [ ] todo
+- [?] unknown/todo
+- [/] in progress
+- [~] unknown/todo
+- [x] done
+- [X] unknown/todo
+- [-] cancelled
+- [b] unknown/todo
+//- - - - - - - - -//
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" /> todo</li>
+<li data-task="?" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> unknown/todo</li>
+<li data-task="/" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> in progress</li>
+<li data-task="~" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> unknown/todo</li>
+<li data-task="x" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done</li>
+<li data-task="X" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> unknown/todo</li>
+<li data-task="-" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> cancelled</li>
+<li data-task="b" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> unknown/todo</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+2: Classes / Loose list
+//- - - - - - - - -//
+
+- [ ] todo
+
+- [/] in progress
+
+- [x] done
+
+- [X] unknown/todo
+
+- [-] cancelled
+
+//- - - - - - - - -//
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item">
+<p><input disabled="" type="checkbox" class="task-list-item-checkbox" /> todo</p>
+</li>
+<li data-task="/" class="task-list-item is-checked">
+<p><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> in progress</p>
+</li>
+<li data-task="x" class="task-list-item is-checked">
+<p><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done</p>
+</li>
+<li data-task="X" class="task-list-item is-checked">
+<p><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> unknown/todo</p>
+</li>
+<li data-task="-" class="task-list-item is-checked">
+<p><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> cancelled</p>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+3: Classes / Multiline items
+//- - - - - - - - -//
+
+- [ ] todo
+  line 2.
+- [x] done
+  line 2.
+
+//- - - - - - - - -//
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" /> todo
+line 2.</li>
+<li data-task="x" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done
+line 2.</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+4: Classes / Multi paragraph items
+//- - - - - - - - -//
+
+- [ ] todo
+
+  paragraph 2.
+
+- [x] done
+
+  paragraph 2.
+
+//- - - - - - - - -//
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item">
+<p><input disabled="" type="checkbox" class="task-list-item-checkbox" /> todo</p>
+<p>paragraph 2.</p>
+</li>
+<li data-task="x" class="task-list-item is-checked">
+<p><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done</p>
+<p>paragraph 2.</p>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+5: Classes / Sublists
+//- - - - - - - - -//
+- item A
+  - [ ] task 1
+    - item B
+    - [ ] subtask 2
+    - item C
+      - item D
+        - [x] subtask 3
+//- - - - - - - - -//
+<ul>
+<li>item A
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" /> task 1
+<ul class="contains-task-list">
+<li>item B</li>
+<li data-task="" class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" /> subtask 2</li>
+<li>item C
+<ul>
+<li>item D
+<ul class="contains-task-list">
+<li data-task="x" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> subtask 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
