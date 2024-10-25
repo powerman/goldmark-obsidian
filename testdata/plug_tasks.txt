@@ -79,6 +79,98 @@
 //= = = = = = = = = = = = = = = = = = = = = = = =//
 
 
+106: Basic / Task can be inside numbered list
+//- - - - - - - - -//
+1. [ ] foo
+2. [x] bar
+//- - - - - - - - -//
+<ol>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ol>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+107: Basic / Task can be inside a callout - TODO
+//- - - - - - - - -//
+> [!info]
+>
+> - [ ] foo
+> - [x] bar
+
+> [!faq]- Foldable and closed by default.
+> - [ ] foo
+> - [x] bar
+
+> [!question]
+> > [!todo]+ Foldable and open by default.
+> > - [ ] foo
+> > - [x] bar
+//- - - - - - - - -//
+<blockquote>
+<p>[!info]</p>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>[!faq]- Foldable and closed by default.</p>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>[!question]</p>
+<blockquote>
+<p>[!todo]+ Foldable and open by default.</p>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+</blockquote>
+</blockquote>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+108: Basic / Task can't be inside a comment - TODO
+//- - - - - - - - -//
+%% - [ ] foo %%
+- %% [x] bar %%
+
+%%
+
+- [ ] foo
+- [x] bar
+
+%%
+//- - - - - - - - -//
+<p>%% - [ ] foo %%</p>
+<ul>
+<li>%% [x] bar %%</li>
+</ul>
+<p>%%</p>
+<ul>
+<li data-task=""><input disabled="" type="checkbox"> foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> bar</li>
+</ul>
+<p>%%</p>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+109: Basic / Task can contain inline comments - TODO
+//- - - - - - - - -//
+- %% [x] %% [ ] foo
+- [x] %% comment %% bar
+//- - - - - - - - -//
+<ul>
+<li>%% [x] %% [ ] foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> %% comment %% bar</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
 200: Prop / Only task have properties
 //- - - - - - - - -//
 - Item with wrong date 📅 2023-02-29
@@ -199,6 +291,7 @@
 //- - - - - - - - -//
 - [ ] Tag   🔺   #tag'+;=[\\]`~   📅 2024-01-02
 - [ ] BlockID   🔺   📅 2024-01-02   ^Block-1
+- [ ] TODO Comments   🔺   %%text%%   📅 %% something %% 2024-01-02
 - [ ] Extra   🔺   text   📅 2024-01-02
 - [ ] No arg 1   🔺   🆔   📅 2024-01-02
 - [ ] No arg 2   🔺   ⛔   📅 2024-01-02
@@ -216,6 +309,7 @@
 <ul>
 <li data-task=""><input disabled="" type="checkbox"> Tag 🔺#tag'+;=[\]`~ 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> BlockID 🔺 📅 2024-01-02^Block-1</li>
+<li data-task=""><input disabled="" type="checkbox"> TODO Comments   🔺   %%text%%   📅 %% something %% 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> Extra   🔺   text 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> No arg 1   🔺   🆔 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> No arg 2   🔺   ⛔ 📅 2024-01-02</li>

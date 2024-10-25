@@ -131,3 +131,19 @@ line 2.</li>
 </li>
 </ul>
 //= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+6: Classes / Numbered list
+//- - - - - - - - -//
+1. [ ] todo
+2. [/] in progress
+3. [x] done
+//- - - - - - - - -//
+<ol class="contains-task-list">
+<li data-task="" class="task-list-item"><input disabled="" type="checkbox" class="task-list-item-checkbox" /> todo</li>
+<li data-task="/" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> in progress</li>
+<li data-task="x" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done</li>
+</ol>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
