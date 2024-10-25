@@ -39,9 +39,49 @@ Known inconsistencies with Obsidian:
 - Tags defined in properties are not applied to document in same way as other tags.
 - Document aliases defined in properties are not processed as internal link targets.
 
-### Obsidian plugins
+TODO:
 
-- [x] [Tasks](https://github.com/obsidian-tasks-group/obsidian-tasks).
+- Add basic tests for all syntax used in [Obsidian Help](https://help.obsidian.md/Home).
+- Add support for comments (both block and inline).
+- Add support for highlights.
+- Add support for callouts.
+
+Not planned (PR is welcome):
+
+- Support for inline footnotes.
+
+### Obsidian plugin [Tasks](https://github.com/obsidian-tasks-group/obsidian-tasks)
+
+- [Supported task formats](https://publish.obsidian.md/tasks/Reference/Task+Formats/About+Task+Formats):
+  - [x] [Tasks Emoji Format](https://publish.obsidian.md/tasks/Reference/Task+Formats/Tasks+Emoji+Format) - the default format
+  - [ ] [Dataview Format](https://publish.obsidian.md/tasks/Reference/Task+Formats/Dataview+Format)
+- [ ] [Optional Global Filter](https://publish.obsidian.md/tasks/Getting+Started/Global+Filter)
+  - [ ] [Removing tag used as a Global Filter](https://publish.obsidian.md/tasks/Getting+Started/Tags#Tags+and+the+Global+Filter)
+- [Dates](https://publish.obsidian.md/tasks/Getting+Started/Dates):
+  - [x] [Due date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Due+date)
+  - [x] [Scheduled date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Scheduled+date)
+  - [x] [Start date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Start+date)
+  - [x] [Created date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Created+date)
+  - [x] [Done date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Done+date)
+- [x] [Cancelled date](https://publish.obsidian.md/tasks/Getting+Started/Dates#Cancelled+date)
+  - [x] Detecting invalid dates
+- [x] [Priority](https://publish.obsidian.md/tasks/Getting+Started/Priority)
+- [x] [Recurring Tasks](https://publish.obsidian.md/tasks/Getting+Started/Recurring+Tasks)
+  - Recurrence rule text is processed as is, without parsing a rule itself
+- [x] [On Completion](https://publish.obsidian.md/tasks/Getting+Started/On+Completion)
+- [x] [Statuses](https://publish.obsidian.md/tasks/Getting+Started/Statuses)
+  - [x] [Custom Statuses](https://publish.obsidian.md/tasks/Getting+Started/Statuses#Custom+Statuses)
+- [ ] [Use Filename as Default Date](https://publish.obsidian.md/tasks/Getting+Started/Use+Filename+as+Default+Date)
+- [x] [Task Dependencies](https://publish.obsidian.md/tasks/Getting+Started/Task+Dependencies)
+
+TODO:
+
+- Add an option to support Global Filter (with tag removal).
+- Add an option to set a Default Date.
+
+Not planned (PR is welcome):
+
+- Dataview Format.
 
 ## Installation
 
