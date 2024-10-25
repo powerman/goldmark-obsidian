@@ -1,6 +1,6 @@
 module github.com/powerman/goldmark-obsidian
 
-go 1.23.1
+go 1.22
 
 require (
 	github.com/litao91/goldmark-mathjax v0.0.0-20210217064022-a43cf739a50f
