@@ -145,5 +145,3 @@ line 2.</li>
 <li data-task="x" class="task-list-item is-checked"><input checked="" disabled="" type="checkbox" class="task-list-item-checkbox" /> done</li>
 </ol>
 //= = = = = = = = = = = = = = = = = = = = = = = =//
-
-

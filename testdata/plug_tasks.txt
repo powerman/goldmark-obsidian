@@ -134,7 +134,34 @@
 //= = = = = = = = = = = = = = = = = = = = = = = =//
 
 
-108: Basic / Task can't be inside a comment - TODO
+108: Basic / Task can't be inside an HTML comment
+//- - - - - - - - -//
+<!-- - [ ] foo -->
+- <!-- [x] bar -->
+
+<!--
+
+- [ ] foo
+- [x] bar
+
+-->
+//- - - - - - - - -//
+<!-- - [ ] foo -->
+<ul>
+<li>
+<!-- [x] bar -->
+</li>
+</ul>
+<!--
+
+- [ ] foo
+- [x] bar
+
+-->
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+109: Basic / Task can't be inside an Obsidian comment - TODO
 //- - - - - - - - -//
 %% - [ ] foo %%
 - %% [x] bar %%
@@ -159,15 +186,42 @@
 //= = = = = = = = = = = = = = = = = = = = = = = =//
 
 
-109: Basic / Task can contain inline comments - TODO
+110: Basic / Task can't contain inline HTML comments
 //- - - - - - - - -//
-- %% [x] %% [ ] foo
-- [x] %% comment %% bar
+- <!-- BAD --> [ ] foo
+- [x] <!-- OK --> bar
 //- - - - - - - - -//
 <ul>
-<li>%% [x] %% [ ] foo</li>
-<li data-task="x"><input checked="" disabled="" type="checkbox"> %% comment %% bar</li>
+<li>
+<!-- BAD --> [ ] foo
+</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> <!-- OK --> bar</li>
 </ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+111: Basic / Task can't contain inline Obsidian comments
+//- - - - - - - - -//
+- %% BAD %% [ ] foo
+- [x] %% OK %% bar
+//- - - - - - - - -//
+<ul>
+<li>%% BAD %% [ ] foo</li>
+<li data-task="x"><input checked="" disabled="" type="checkbox"> %% OK %% bar</li>
+</ul>
+//= = = = = = = = = = = = = = = = = = = = = = = =//
+
+
+112: Basic / Task can't be inside a code block
+//- - - - - - - - -//
+```
+- [ ] foo
+- [x] bar
+```
+//- - - - - - - - -//
+<pre><code>- [ ] foo
+- [x] bar
+</code></pre>
 //= = = = = = = = = = = = = = = = = = = = = = = =//
 
 
@@ -291,7 +345,8 @@
 //- - - - - - - - -//
 - [ ] Tag   🔺   #tag'+;=[\\]`~   📅 2024-01-02
 - [ ] BlockID   🔺   📅 2024-01-02   ^Block-1
-- [ ] TODO Comments   🔺   %%text%%   📅 %% something %% 2024-01-02
+- [ ] HTML Comments   🔺   <!--BAD-->   📅   2024-01-02
+- [ ] Obsidian Comments   🔺   %%BAD%%   📅   2024-01-02
 - [ ] Extra   🔺   text   📅 2024-01-02
 - [ ] No arg 1   🔺   🆔   📅 2024-01-02
 - [ ] No arg 2   🔺   ⛔   📅 2024-01-02
@@ -309,7 +364,8 @@
 <ul>
 <li data-task=""><input disabled="" type="checkbox"> Tag 🔺#tag'+;=[\]`~ 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> BlockID 🔺 📅 2024-01-02^Block-1</li>
-<li data-task=""><input disabled="" type="checkbox"> TODO Comments   🔺   %%text%%   📅 %% something %% 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> HTML Comments   🔺   <!--BAD--> 📅 2024-01-02</li>
+<li data-task=""><input disabled="" type="checkbox"> Obsidian Comments   🔺   %%BAD%% 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> Extra   🔺   text 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> No arg 1   🔺   🆔 📅 2024-01-02</li>
 <li data-task=""><input disabled="" type="checkbox"> No arg 2   🔺   ⛔ 📅 2024-01-02</li>
