@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/litao91/goldmark-mathjax v0.0.0-20210217064022-a43cf739a50f
-	github.com/yuin/goldmark v1.7.8
+	github.com/yuin/goldmark v1.7.10
 	github.com/yuin/goldmark-meta v1.1.0
 	go.abhg.dev/goldmark/hashtag v0.3.1
 	go.abhg.dev/goldmark/mermaid v0.5.0
