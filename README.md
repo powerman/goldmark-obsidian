@@ -1,10 +1,12 @@
 # goldmark-obsidian
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/powerman/goldmark-obsidian.svg)](https://pkg.go.dev/github.com/powerman/goldmark-obsidian)
-[![CI/CD](https://github.com/powerman/goldmark-obsidian/actions/workflows/CI&CD.yml/badge.svg)](https://github.com/powerman/goldmark-obsidian/actions/workflows/CI&CD.yml)
-[![Coverage Status](https://coveralls.io/repos/github/powerman/goldmark-obsidian/badge.svg?branch=master)](https://coveralls.io/github/powerman/goldmark-obsidian?branch=master)
+[![License MIT](https://img.shields.io/badge/license-MIT-royalblue.svg)](LICENSE)
+[![Go version](https://img.shields.io/github/go-mod/go-version/powerman/goldmark-obsidian?color=blue)](https://go.dev/)
+[![Test](https://img.shields.io/github/actions/workflow/status/powerman/goldmark-obsidian/test.yml?label=test)](https://github.com/powerman/goldmark-obsidian/actions/workflows/test.yml)
+[![Coverage Status](https://raw.githubusercontent.com/powerman/goldmark-obsidian/gh-badges/coverage.svg)](https://github.com/powerman/goldmark-obsidian/actions/workflows/test.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/powerman/goldmark-obsidian)](https://goreportcard.com/report/github.com/powerman/goldmark-obsidian)
-[![Release](https://img.shields.io/github/v/release/powerman/goldmark-obsidian)](https://github.com/powerman/goldmark-obsidian/releases/latest)
+[![Release](https://img.shields.io/github/v/release/powerman/goldmark-obsidian?color=blue)](https://github.com/powerman/goldmark-obsidian/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/powerman/goldmark-obsidian.svg)](https://pkg.go.dev/github.com/powerman/goldmark-obsidian)
 
 An [Obsidian](https://obsidian.md/) extension for the
 [goldmark](https://github.com/yuin/goldmark) markdown parser.

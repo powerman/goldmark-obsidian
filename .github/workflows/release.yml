@@ -1,0 +1,114 @@
+name: Release
+
+on:
+  push: # To create/update release PR and to make a release.
+  pull_request: # To update release PR after manually changing version for the next release.
+    types: [edited]
+
+permissions:
+  contents: write # To create/update release_pr branch, create a release and a tag.
+  pull-requests: write # To create/update PR from release_pr branch.
+  id-token: write # For cosign signing.
+
+env:
+  GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+jobs:
+  release-pr:
+    uses: powerman/workflows/.github/workflows/release-pr.yml@v0.4.3
+    secrets:
+      TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+  build-and-upload:
+    needs: [release-pr]
+    if: ${{ needs.release-pr.outputs.result == 'released' }}
+    permissions:
+      contents: write # To upload to GitHub release.
+      id-token: write # For cosign signing.
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - {goos: linux, goarch: amd64}
+          - {goos: linux, goarch: arm64}
+          - {goos: linux, goarch: arm, goarm: 7}
+          - {goos: darwin, goarch: amd64}
+          - {goos: darwin, goarch: arm64}
+          - {goos: windows, goarch: amd64}
+          - {goos: windows, goarch: arm64}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          ref: ${{ needs.release-pr.outputs.version }}
+
+      - name: Build binary
+        id: build
+        uses: wangyoucao577/go-release-action@v1.53
+        with:
+          github_token: ${{ env.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goarm: ${{ matrix.goarm }}
+          project_path: '.'
+          binary_name: ${{ github.event.repository.name }}
+          pre_command: 'export CGO_ENABLED=0'
+          build_flags: '-trimpath' # Reproducible build (also needs -buildid= in ldflags).
+          ldflags: '-s -w -buildid='
+          executable_compression: upx
+          md5sum: false
+          compress_assets: 'OFF'
+          release_tag: ${{ needs.release-pr.outputs.version }}
+          overwrite: true
+          upload: false
+
+      - name: 'Fix after go-release-action: asset dir is owned by root and has no-arch binary'
+        env:
+          ASSET_DIR: ${{ steps.build.outputs.release_asset_dir }}
+        run: |
+          sudo chown -R "$(id -u)" "$ASSET_DIR"
+          rm -f "$ASSET_DIR/$(basename "$PWD")"{,.exe}
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign assets with cosign
+        working-directory: ${{ steps.build.outputs.release_asset_dir }}
+        run: |
+          for file in *; do
+            if [[ -f "$file" && ! "$file" =~ \.(sha256|md5|sig)$ ]]; then
+              echo "Signing $file..."
+              cosign sign-blob --yes "$file" --output-signature "${file}.sig"
+            fi
+          done
+
+      - name: Upload files to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          tag_name: ${{ needs.release-pr.outputs.version }}
+          body: ${{ needs.release-pr.outputs.changelog }}
+          files: ${{ steps.build.outputs.release_asset_dir }}/*
+          draft: true
+          prerelease: ${{ needs.release-pr.outputs.prerelease }}
+          make_latest: false
+
+  # Mark release as non-draft and latest.
+  finalize:
+    needs: [release-pr, build-and-upload]
+    if: ${{ needs.release-pr.outputs.result == 'released' }}
+    permissions:
+      contents: write # To update the GitHub release.
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          tag_name: ${{ needs.release-pr.outputs.version }}
+          body: ${{ needs.release-pr.outputs.changelog }}
+          draft: false
+          prerelease: ${{ needs.release-pr.outputs.prerelease }}
+          make_latest: ${{ needs.release-pr.outputs.prerelease != 'true' }}
