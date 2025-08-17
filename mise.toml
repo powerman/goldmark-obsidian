@@ -6,6 +6,14 @@ lockfile = true     # DO NOT FORGET TO `touch mise.lock` if mise.lock does not e
 [tools]
 go = 'latest'
 
+#--- Format
+# Command goimports updates your Go import lines, adding missing ones and removing unreferenced ones.
+"go:golang.org/x/tools/cmd/goimports" = "latest"
+# GCI, a tool that control golang package import order and make it always deterministic.
+"go:github.com/daixiang0/gci" = "latest"
+# A stricter gofmt.
+gofumpt = "latest"
+
 #--- Lint
 # Static checker for GitHub Actions workflow files.
 actionlint = 'latest'
