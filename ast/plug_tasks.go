@@ -54,8 +54,17 @@ func (t PlugTasksStatusType) IsDone() bool {
 // A PlugTasksStatus represents a checkbox of an Obsidian plugin Tasks's task.
 type PlugTasksStatus struct {
 	gast.BaseInline
+
 	Symbol     rune
 	StatusType PlugTasksStatusType
+}
+
+// NewPlugTasksStatus returns a new PlugTasksStatus node.
+func NewPlugTasksStatus(symbol rune, statusType PlugTasksStatusType) *PlugTasksStatus {
+	return &PlugTasksStatus{
+		Symbol:     symbol,
+		StatusType: statusType,
+	}
 }
 
 // IsChecked reports whether Symbol != ' '.
@@ -78,14 +87,6 @@ var KindPlugTasksStatus = gast.NewNodeKind("PlugTasksStatus") // Const.
 // Kind implements [ast.Node].
 func (*PlugTasksStatus) Kind() gast.NodeKind {
 	return KindPlugTasksStatus
-}
-
-// NewPlugTasksStatus returns a new PlugTasksStatus node.
-func NewPlugTasksStatus(symbol rune, statusType PlugTasksStatusType) *PlugTasksStatus {
-	return &PlugTasksStatus{
-		Symbol:     symbol,
-		StatusType: statusType,
-	}
 }
 
 // PlugTasksPriority is an Obsidian plugin Tasks's [priority].
@@ -126,7 +127,15 @@ func (t PlugTasksPriority) String() string {
 // A PlugTasksPrio represents an Obsidian plugin Tasks's task priority.
 type PlugTasksPrio struct {
 	gast.BaseInline
+
 	Prio PlugTasksPriority
+}
+
+// NewPlugTasksPrio returns a new PlugTasksPrio node.
+func NewPlugTasksPrio(prio PlugTasksPriority) *PlugTasksPrio {
+	return &PlugTasksPrio{
+		Prio: prio,
+	}
 }
 
 // Dump implements [ast.Node].
@@ -145,17 +154,18 @@ func (*PlugTasksPrio) Kind() gast.NodeKind {
 	return KindPlugTasksPrio
 }
 
-// NewPlugTasksPrio returns a new PlugTasksPrio node.
-func NewPlugTasksPrio(prio PlugTasksPriority) *PlugTasksPrio {
-	return &PlugTasksPrio{
-		Prio: prio,
-	}
-}
-
 // A PlugTasksID represents an Obsidian plugin Tasks's task ID.
 type PlugTasksID struct {
 	gast.BaseInline
+
 	ID string
+}
+
+// NewPlugTasksID returns a new PlugTasksID node.
+func NewPlugTasksID(id string) *PlugTasksID {
+	return &PlugTasksID{
+		ID: id,
+	}
 }
 
 // Dump implements [ast.Node].
@@ -174,17 +184,18 @@ func (*PlugTasksID) Kind() gast.NodeKind {
 	return KindPlugTasksID
 }
 
-// NewPlugTasksID returns a new PlugTasksID node.
-func NewPlugTasksID(id string) *PlugTasksID {
-	return &PlugTasksID{
-		ID: id,
-	}
-}
-
 // A PlugTasksDependsOn represents an Obsidian plugin Tasks's task dependencies.
 type PlugTasksDependsOn struct {
 	gast.BaseInline
+
 	IDs []string
+}
+
+// NewPlugTasksDependsOn returns a new PlugTasksDependsOn node.
+func NewPlugTasksDependsOn(ids []string) *PlugTasksDependsOn {
+	return &PlugTasksDependsOn{
+		IDs: ids,
+	}
 }
 
 // Dump implements [ast.Node].
@@ -203,17 +214,18 @@ func (*PlugTasksDependsOn) Kind() gast.NodeKind {
 	return KindPlugTasksDependsOn
 }
 
-// NewPlugTasksDependsOn returns a new PlugTasksDependsOn node.
-func NewPlugTasksDependsOn(ids []string) *PlugTasksDependsOn {
-	return &PlugTasksDependsOn{
-		IDs: ids,
-	}
-}
-
 // A PlugTasksDue represents an Obsidian plugin Tasks's task due date.
 type PlugTasksDue struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksDue returns a new PlugTasksDue node.
+func NewPlugTasksDue(date time.Time) *PlugTasksDue {
+	return &PlugTasksDue{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -237,17 +249,18 @@ func (*PlugTasksDue) Kind() gast.NodeKind {
 	return KindPlugTasksDue
 }
 
-// NewPlugTasksDue returns a new PlugTasksDue node.
-func NewPlugTasksDue(date time.Time) *PlugTasksDue {
-	return &PlugTasksDue{
-		Date: date,
-	}
-}
-
 // A PlugTasksScheduled represents an Obsidian plugin Tasks's task scheduled date.
 type PlugTasksScheduled struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksScheduled returns a new PlugTasksScheduled node.
+func NewPlugTasksScheduled(date time.Time) *PlugTasksScheduled {
+	return &PlugTasksScheduled{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -271,17 +284,18 @@ func (*PlugTasksScheduled) Kind() gast.NodeKind {
 	return KindPlugTasksScheduled
 }
 
-// NewPlugTasksScheduled returns a new PlugTasksScheduled node.
-func NewPlugTasksScheduled(date time.Time) *PlugTasksScheduled {
-	return &PlugTasksScheduled{
-		Date: date,
-	}
-}
-
 // A PlugTasksStart represents an Obsidian plugin Tasks's task start date.
 type PlugTasksStart struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksStart returns a new PlugTasksStart node.
+func NewPlugTasksStart(date time.Time) *PlugTasksStart {
+	return &PlugTasksStart{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -305,17 +319,18 @@ func (*PlugTasksStart) Kind() gast.NodeKind {
 	return KindPlugTasksStart
 }
 
-// NewPlugTasksStart returns a new PlugTasksStart node.
-func NewPlugTasksStart(date time.Time) *PlugTasksStart {
-	return &PlugTasksStart{
-		Date: date,
-	}
-}
-
 // A PlugTasksCreated represents an Obsidian plugin Tasks's task created date.
 type PlugTasksCreated struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksCreated returns a new PlugTasksCreated node.
+func NewPlugTasksCreated(date time.Time) *PlugTasksCreated {
+	return &PlugTasksCreated{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -339,17 +354,18 @@ func (*PlugTasksCreated) Kind() gast.NodeKind {
 	return KindPlugTasksCreated
 }
 
-// NewPlugTasksCreated returns a new PlugTasksCreated node.
-func NewPlugTasksCreated(date time.Time) *PlugTasksCreated {
-	return &PlugTasksCreated{
-		Date: date,
-	}
-}
-
 // A PlugTasksDone represents an Obsidian plugin Tasks's task done date.
 type PlugTasksDone struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksDone returns a new PlugTasksDone node.
+func NewPlugTasksDone(date time.Time) *PlugTasksDone {
+	return &PlugTasksDone{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -373,17 +389,18 @@ func (*PlugTasksDone) Kind() gast.NodeKind {
 	return KindPlugTasksDone
 }
 
-// NewPlugTasksDone returns a new PlugTasksDone node.
-func NewPlugTasksDone(date time.Time) *PlugTasksDone {
-	return &PlugTasksDone{
-		Date: date,
-	}
-}
-
 // A PlugTasksCancelled represents an Obsidian plugin Tasks's task cancelled date.
 type PlugTasksCancelled struct {
 	gast.BaseInline
+
 	Date time.Time
+}
+
+// NewPlugTasksCancelled returns a new PlugTasksCancelled node.
+func NewPlugTasksCancelled(date time.Time) *PlugTasksCancelled {
+	return &PlugTasksCancelled{
+		Date: date,
+	}
 }
 
 // IsValid reports whether date is valid.
@@ -407,19 +424,20 @@ func (*PlugTasksCancelled) Kind() gast.NodeKind {
 	return KindPlugTasksCancelled
 }
 
-// NewPlugTasksCancelled returns a new PlugTasksCancelled node.
-func NewPlugTasksCancelled(date time.Time) *PlugTasksCancelled {
-	return &PlugTasksCancelled{
-		Date: date,
-	}
-}
-
 // A PlugTasksRecurring represents an Obsidian plugin Tasks's recurring task.
 //
 // Rule is not validated and may be invalid.
 type PlugTasksRecurring struct {
 	gast.BaseInline
+
 	Rule string
+}
+
+// NewPlugTasksRecurring returns a new PlugTasksRecurring node.
+func NewPlugTasksRecurring(rule string) *PlugTasksRecurring {
+	return &PlugTasksRecurring{
+		Rule: rule,
+	}
 }
 
 // Dump implements [ast.Node].
@@ -436,13 +454,6 @@ var KindPlugTasksRecurring = gast.NewNodeKind("PlugTasksRecurring") // Const.
 // Kind implements [ast.Node].
 func (*PlugTasksRecurring) Kind() gast.NodeKind {
 	return KindPlugTasksRecurring
-}
-
-// NewPlugTasksRecurring returns a new PlugTasksRecurring node.
-func NewPlugTasksRecurring(rule string) *PlugTasksRecurring {
-	return &PlugTasksRecurring{
-		Rule: rule,
-	}
 }
 
 // PlugTasksOnCompletionAction is an Obsidian plugin Tasks's action on completion.
@@ -470,7 +481,15 @@ func (t PlugTasksOnCompletionAction) String() string {
 // A PlugTasksOnCompletion represents an Obsidian plugin Tasks's task action on completion.
 type PlugTasksOnCompletion struct {
 	gast.BaseInline
+
 	Action PlugTasksOnCompletionAction
+}
+
+// NewPlugTasksOnCompletion returns a new PlugTasksOnCompletion node.
+func NewPlugTasksOnCompletion(action PlugTasksOnCompletionAction) *PlugTasksOnCompletion {
+	return &PlugTasksOnCompletion{
+		Action: action,
+	}
 }
 
 // IsValid reports whether action is valid.
@@ -492,11 +511,4 @@ var KindPlugTasksOnCompletion = gast.NewNodeKind("PlugTasksOnCompletion") // Con
 // Kind implements [ast.Node].
 func (*PlugTasksOnCompletion) Kind() gast.NodeKind {
 	return KindPlugTasksOnCompletion
-}
-
-// NewPlugTasksOnCompletion returns a new PlugTasksOnCompletion node.
-func NewPlugTasksOnCompletion(action PlugTasksOnCompletionAction) *PlugTasksOnCompletion {
-	return &PlugTasksOnCompletion{
-		Action: action,
-	}
 }

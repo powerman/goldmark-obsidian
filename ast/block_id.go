@@ -10,10 +10,21 @@ import (
 // https://help.obsidian.md/Linking+notes+and+files/Internal+links#Link+to+a+block+in+a+note
 type BlockID struct {
 	gast.BaseInline
+
 	ID []byte
 	// Invalid means this block id can't be used as a reference target.
 	// This is how Obsidian works, so we are just following it behaviour.
 	Invalid bool
+}
+
+// NewBlockID returns a new valid BlockID node.
+func NewBlockID(id []byte) *BlockID {
+	return &BlockID{ID: id, Invalid: false}
+}
+
+// NewInvalidBlockID returns a new invalid BlockID node.
+func NewInvalidBlockID(id []byte) *BlockID {
+	return &BlockID{ID: id, Invalid: true}
 }
 
 // Dump implements Node.Dump.
@@ -31,14 +42,4 @@ var KindBlockID = gast.NewNodeKind("BlockID") // Const.
 // Kind implements Node.Kind.
 func (*BlockID) Kind() gast.NodeKind {
 	return KindBlockID
-}
-
-// NewBlockID returns a new valid BlockID node.
-func NewBlockID(id []byte) *BlockID {
-	return &BlockID{ID: id, Invalid: false}
-}
-
-// NewInvalidBlockID returns a new invalid BlockID node.
-func NewInvalidBlockID(id []byte) *BlockID {
-	return &BlockID{ID: id, Invalid: true}
 }

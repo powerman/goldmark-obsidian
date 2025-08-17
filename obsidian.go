@@ -61,25 +61,25 @@ func NewObsidian() Obsidian {
 
 // WithLinkifyOptions returns a new extension modified to use given opts.
 func (e Obsidian) WithLinkifyOptions(opts ...extension.LinkifyOption) Obsidian {
-	e.linkify = extension.NewLinkify(opts...) //nolint:revive // By design.
+	e.linkify = extension.NewLinkify(opts...)
 	return e
 }
 
 // WithTableOptions returns a new extension modified to use given opts.
 func (e Obsidian) WithTableOptions(opts ...extension.TableOption) Obsidian {
-	e.table = extension.NewTable(opts...) //nolint:revive // By design.
+	e.table = extension.NewTable(opts...)
 	return e
 }
 
 // WithFootnoteOptions returns a new extension modified to use given opts.
 func (e Obsidian) WithFootnoteOptions(opts ...extension.FootnoteOption) Obsidian {
-	e.footnote = extension.NewFootnote(opts...) //nolint:revive // By design.
+	e.footnote = extension.NewFootnote(opts...)
 	return e
 }
 
 // WithMetaOptions returns a new extension modified to use given opts.
 func (e Obsidian) WithMetaOptions(opts ...meta.Option) Obsidian {
-	e.meta = meta.New(opts...) //nolint:revive // By design.
+	e.meta = meta.New(opts...)
 	return e
 }
 
@@ -97,13 +97,13 @@ func (e Obsidian) WithWikilinkResolver(resolver wikilink.Resolver) Obsidian {
 
 // WithMermaid returns a new extension modified to use given m.
 func (e Obsidian) WithMermaid(m mermaid.Extender) Obsidian {
-	e.mermaid = m //nolint:revive // By design.
+	e.mermaid = m
 	return e
 }
 
 // WithMathJaxOptions returns a new extension modified to use given opts.
 func (e Obsidian) WithMathJaxOptions(opts ...mathjax.Option) Obsidian {
-	e.mathjax = mathjax.NewMathJax(opts...) //nolint:revive // By design.
+	e.mathjax = mathjax.NewMathJax(opts...)
 	return e
 }
 
