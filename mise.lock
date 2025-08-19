@@ -32,8 +32,13 @@ size = 4149432
 url = "https://github.com/mvdan/gofumpt/releases/download/v0.8.0/gofumpt_v0.8.0_linux_amd64"
 
 [tools.golangci-lint]
-version = "2.3.0"
+version = "2.4.0"
 backend = "aqua:golangci/golangci-lint"
+
+[tools.golangci-lint.platforms.linux-x64]
+checksum = "sha256:fae792524c04424c0ac369f5b8076f04b45cf29fc945a370e55d369a8dc11840"
+size = 14126779
+url = "https://github.com/golangci/golangci-lint/releases/download/v2.4.0/golangci-lint-2.4.0-linux-amd64.tar.gz"
 
 [tools.gotestsum]
 version = "1.12.3"
