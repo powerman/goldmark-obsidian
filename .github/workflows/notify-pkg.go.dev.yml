@@ -5,6 +5,9 @@ on:
   push:
     tags: [v*]
 
+permissions:
+  contents: read
+
 jobs:
   notify:
     timeout-minutes: 5
