@@ -8,6 +8,10 @@
 [![Release](https://img.shields.io/github/v/release/powerman/goldmark-obsidian?color=blue)](https://github.com/powerman/goldmark-obsidian/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/powerman/goldmark-obsidian.svg)](https://pkg.go.dev/github.com/powerman/goldmark-obsidian)
 
+![Linux | amd64 arm64 armv7 ppc64le s390x riscv64](https://img.shields.io/badge/Linux-amd64%20arm64%20armv7%20ppc64le%20s390x%20riscv64-royalblue)
+![macOS | amd64 arm64](https://img.shields.io/badge/macOS-amd64%20arm64-royalblue)
+![Windows | amd64 arm64](https://img.shields.io/badge/Windows-amd64%20arm64-royalblue)
+
 An [Obsidian](https://obsidian.md/) extension for the
 [goldmark](https://github.com/yuin/goldmark) markdown parser.
 
