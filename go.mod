@@ -7,7 +7,7 @@ require (
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-meta v1.1.0
 	go.abhg.dev/goldmark/hashtag v0.4.0
-	go.abhg.dev/goldmark/mermaid v0.5.0
+	go.abhg.dev/goldmark/mermaid v0.6.0
 	go.abhg.dev/goldmark/wikilink v0.6.0
 )
 
