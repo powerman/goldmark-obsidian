@@ -8,7 +8,7 @@ import (
 	"github.com/yuin/goldmark/testutil"
 
 	obsidian "github.com/powerman/goldmark-obsidian"
-	"github.com/powerman/goldmark-obsidian/ast"
+	"github.com/powerman/goldmark-obsidian/obsast"
 )
 
 func TestPlugTasks(t *testing.T) {
@@ -48,10 +48,10 @@ func TestPlugTasks_Options(t *testing.T) {
 		),
 		goldmark.WithExtensions(
 			obsidian.NewPlugTasks(
-				obsidian.WithPlugTasksStatusType('X', ast.PlugTasksStatusTypeDone),
-				obsidian.WithPlugTasksStatusTypes(map[rune]ast.PlugTasksStatusType{
-					'~': ast.PlugTasksStatusTypeInProgress,
-					'b': ast.PlugTasksStatusTypeNonTask,
+				obsidian.WithPlugTasksStatusType('X', obsast.PlugTasksStatusTypeDone),
+				obsidian.WithPlugTasksStatusTypes(map[rune]obsast.PlugTasksStatusType{
+					'~': obsast.PlugTasksStatusTypeInProgress,
+					'b': obsast.PlugTasksStatusTypeNonTask,
 				}),
 				obsidian.WithPlugTasksListClass(""),
 				obsidian.WithPlugTasksListItemNotCheckedClass("tasks-item not-checked"),

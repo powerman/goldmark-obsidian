@@ -10,7 +10,7 @@ import (
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
 
-	"github.com/powerman/goldmark-obsidian/ast"
+	"github.com/powerman/goldmark-obsidian/obsast"
 )
 
 var blockIDRegexp = regexp.MustCompile(`^\^[A-Za-z0-9-]+$`)
@@ -66,7 +66,7 @@ func (BlockIDParser) Parse(parent gast.Node, block text.Reader, pc parser.Contex
 	case target.Kind() == gast.KindParagraph &&
 		(root.Kind() == gast.KindListItem || root.Kind() == gast.KindBlockquote):
 		if root.LastChild() != target {
-			return ast.NewInvalidBlockID(id)
+			return obsast.NewInvalidBlockID(id)
 		}
 		target = root
 	}
@@ -74,18 +74,18 @@ func (BlockIDParser) Parse(parent gast.Node, block text.Reader, pc parser.Contex
 	// Obsidian do not set ID for child elements inside a blockquote.
 	for p := target.Parent(); p != nil; p = p.Parent() {
 		if p.Kind() == gast.KindBlockquote {
-			return ast.NewInvalidBlockID(id)
+			return obsast.NewInvalidBlockID(id)
 		}
 	}
 	// Obsidian do not set ID for empty paragraph containing only ^block-id.
 	if target.Kind() == gast.KindParagraph && len(target.Lines().Value(block.Source())) == len(id) {
-		return ast.NewInvalidBlockID(id)
+		return obsast.NewInvalidBlockID(id)
 	}
 
 	target.SetAttribute(attrNameID, id)
 	pc.IDs().Put(id)
 
-	return ast.NewBlockID(id)
+	return obsast.NewBlockID(id)
 }
 
 // BlockIDHTMLRenderer is an HTML renderer for Obsidian block id.
@@ -100,7 +100,7 @@ func NewBlockIDHTMLRenderer() BlockIDHTMLRenderer {
 
 // RegisterFuncs implements [renderer.NodeRenderer].
 func (BlockIDHTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
-	reg.Register(ast.KindBlockID, nil)
+	reg.Register(obsast.KindBlockID, nil)
 }
 
 // BlockID is an extension that helps to setup Obsidian [block id] parser and HTML renderer.

@@ -2,6 +2,7 @@ package obsidian
 
 import (
 	"fmt"
+	"maps"
 	"math"
 	"regexp"
 	"strings"
@@ -16,7 +17,7 @@ import (
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
 
-	"github.com/powerman/goldmark-obsidian/ast"
+	"github.com/powerman/goldmark-obsidian/obsast"
 )
 
 // Default attributes used by [NewPlugTasksParser].
@@ -40,7 +41,7 @@ const (
 )
 
 type plugTasksConfig struct {
-	StatusType              map[rune]ast.PlugTasksStatusType
+	StatusType              map[rune]obsast.PlugTasksStatusType
 	ListClass               []byte
 	ListItemNotCheckedClass []byte
 	ListItemCheckedClass    []byte
@@ -50,11 +51,11 @@ type plugTasksConfig struct {
 
 func newPlugTasksConfig() plugTasksConfig {
 	return plugTasksConfig{
-		StatusType: map[rune]ast.PlugTasksStatusType{
-			DefaultPlugTasksTODOSymbol:       ast.PlugTasksStatusTypeTODO,
-			DefaultPlugTasksInProgressSymbol: ast.PlugTasksStatusTypeInProgress,
-			DefaultPlugTasksDoneSymbol:       ast.PlugTasksStatusTypeDone,
-			DefaultPlugTasksCancelledSymbol:  ast.PlugTasksStatusTypeCancelled,
+		StatusType: map[rune]obsast.PlugTasksStatusType{
+			DefaultPlugTasksTODOSymbol:       obsast.PlugTasksStatusTypeTODO,
+			DefaultPlugTasksInProgressSymbol: obsast.PlugTasksStatusTypeInProgress,
+			DefaultPlugTasksDoneSymbol:       obsast.PlugTasksStatusTypeDone,
+			DefaultPlugTasksCancelledSymbol:  obsast.PlugTasksStatusTypeCancelled,
 		},
 		ListClass:               []byte(DefaultPlugTasksListClass),
 		ListItemNotCheckedClass: []byte(DefaultPlugTasksListItemNotCheckedClass),
@@ -73,7 +74,7 @@ type PlugTasksOption func(*plugTasksConfig)
 //
 // To "disable" one of default symbols set it statusType to ast.PlugTasksStatusTypeTODO,
 // which is used by default for all unknown symbols.
-func WithPlugTasksStatusType(symbol rune, statusType ast.PlugTasksStatusType) PlugTasksOption {
+func WithPlugTasksStatusType(symbol rune, statusType obsast.PlugTasksStatusType) PlugTasksOption {
 	return func(config *plugTasksConfig) {
 		config.StatusType[symbol] = statusType
 	}
@@ -83,11 +84,9 @@ func WithPlugTasksStatusType(symbol rune, statusType ast.PlugTasksStatusType) Pl
 //
 // To "disable" one of default symbols set it statusType to ast.PlugTasksStatusTypeTODO,
 // which is used by default for all unknown symbols.
-func WithPlugTasksStatusTypes(statusTypes map[rune]ast.PlugTasksStatusType) PlugTasksOption {
+func WithPlugTasksStatusTypes(statusTypes map[rune]obsast.PlugTasksStatusType) PlugTasksOption {
 	return func(config *plugTasksConfig) {
-		for symbol, statusType := range statusTypes {
-			config.StatusType[symbol] = statusType
-		}
+		maps.Copy(config.StatusType, statusTypes)
 	}
 }
 
@@ -182,10 +181,10 @@ func (p *PlugTasksParser) Parse(parent gast.Node, block text.Reader, _ parser.Co
 
 	statusType, ok := p.StatusType[symbol]
 	if !ok { // https://publish.obsidian.md/tasks/Getting+Started/Statuses#Unknown+Statuses
-		statusType = ast.PlugTasksStatusTypeTODO
+		statusType = obsast.PlugTasksStatusTypeTODO
 	}
 
-	node := ast.NewPlugTasksStatus(symbol, statusType)
+	node := obsast.NewPlugTasksStatus(symbol, statusType)
 	itemNode := parent.Parent()
 	listNode := itemNode.Parent()
 
@@ -336,7 +335,7 @@ func (PlugTasksPropParser) Trigger() []byte {
 	// (to ensure we won't miss anything) and then in Parse() skip up to (but not including)
 	// next emoji, to make that emoji a start of next "line".
 	var puncts []byte
-	for b := byte(0); b < math.MaxUint8; b++ {
+	for b := range byte(math.MaxUint8) {
 		if util.IsPunct(b) {
 			puncts = append(puncts, b)
 		}
@@ -348,7 +347,7 @@ func (PlugTasksPropParser) Trigger() []byte {
 func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.Context) gast.Node { //nolint:funlen,gocognit // Split will hurt readability.
 	// Skip parsing task properties if it's not a task.
 	preceding := parent.FirstChild()
-	for preceding != nil && preceding.Kind() != ast.KindPlugTasksStatus {
+	for preceding != nil && preceding.Kind() != obsast.KindPlugTasksStatus {
 		preceding = preceding.NextSibling()
 	}
 	if preceding == nil {
@@ -409,15 +408,15 @@ func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.C
 	case m[idxEmojiWithoutArgs] >= 0:
 		switch string(line[m[idxEmojiWithoutArgs]:m[idxEmojiWithoutArgs+1]]) {
 		case plugTasksPrioLowestEmoji:
-			node = ast.NewPlugTasksPrio(ast.PlugTasksPrioLowest)
+			node = obsast.NewPlugTasksPrio(obsast.PlugTasksPrioLowest)
 		case plugTasksPrioLowEmoji:
-			node = ast.NewPlugTasksPrio(ast.PlugTasksPrioLow)
+			node = obsast.NewPlugTasksPrio(obsast.PlugTasksPrioLow)
 		case plugTasksPrioMediumEmoji:
-			node = ast.NewPlugTasksPrio(ast.PlugTasksPrioMedium)
+			node = obsast.NewPlugTasksPrio(obsast.PlugTasksPrioMedium)
 		case plugTasksPrioHighEmoji:
-			node = ast.NewPlugTasksPrio(ast.PlugTasksPrioHigh)
+			node = obsast.NewPlugTasksPrio(obsast.PlugTasksPrioHigh)
 		case plugTasksPrioHighestEmoji:
-			node = ast.NewPlugTasksPrio(ast.PlugTasksPrioHighest)
+			node = obsast.NewPlugTasksPrio(obsast.PlugTasksPrioHighest)
 		default:
 			panic("unknown emoji without args")
 		}
@@ -427,7 +426,7 @@ func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.C
 
 		switch string(line[m[idxEmojiWithID]:m[idxEmojiWithID+1]]) {
 		case plugTasksIDEmoji:
-			node = ast.NewPlugTasksID(id)
+			node = obsast.NewPlugTasksID(id)
 		default:
 			panic("unknown emoji with ID")
 		}
@@ -437,7 +436,7 @@ func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.C
 
 		switch string(line[m[idxEmojiWithIDs]:m[idxEmojiWithIDs+1]]) {
 		case plugTasksDependsOnEmoji:
-			node = ast.NewPlugTasksDependsOn(ids)
+			node = obsast.NewPlugTasksDependsOn(ids)
 		default:
 			panic("unknown emoji with IDs")
 		}
@@ -447,17 +446,17 @@ func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.C
 
 		switch string(line[m[idxEmojiWithDate]:m[idxEmojiWithDate+1]]) {
 		case plugTasksDueEmoji:
-			node = ast.NewPlugTasksDue(date)
+			node = obsast.NewPlugTasksDue(date)
 		case plugTasksScheduledEmoji:
-			node = ast.NewPlugTasksScheduled(date)
+			node = obsast.NewPlugTasksScheduled(date)
 		case plugTasksStartEmoji:
-			node = ast.NewPlugTasksStart(date)
+			node = obsast.NewPlugTasksStart(date)
 		case plugTasksCreatedEmoji:
-			node = ast.NewPlugTasksCreated(date)
+			node = obsast.NewPlugTasksCreated(date)
 		case plugTasksDoneEmoji:
-			node = ast.NewPlugTasksDone(date)
+			node = obsast.NewPlugTasksDone(date)
 		case plugTasksCancelledEmoji:
-			node = ast.NewPlugTasksCancelled(date)
+			node = obsast.NewPlugTasksCancelled(date)
 		default:
 			panic("unknown emoji with date")
 		}
@@ -467,23 +466,23 @@ func (PlugTasksPropParser) Parse(parent gast.Node, block text.Reader, _ parser.C
 
 		switch string(line[m[idxEmojiWithRecurring]:m[idxEmojiWithRecurring+1]]) {
 		case plugTasksRecurringEmoji:
-			node = ast.NewPlugTasksRecurring(rule)
+			node = obsast.NewPlugTasksRecurring(rule)
 		default:
 			panic("unknown emoji with recurring schedule")
 		}
 
 	case m[idxEmojiWithOnCompletionAction] >= 0:
-		var action ast.PlugTasksOnCompletionAction
+		var action obsast.PlugTasksOnCompletionAction
 		switch strings.ToLower(string(line[m[idxOnCompletionAction]:m[idxOnCompletionAction+1]])) {
 		case "keep":
-			action = ast.PlugTasksOnCompletionKeep
+			action = obsast.PlugTasksOnCompletionKeep
 		case "delete":
-			action = ast.PlugTasksOnCompletionDelete
+			action = obsast.PlugTasksOnCompletionDelete
 		}
 
 		switch string(line[m[idxEmojiWithOnCompletionAction]:m[idxEmojiWithOnCompletionAction+1]]) {
 		case plugTasksOnCompletionEmoji:
-			node = ast.NewPlugTasksOnCompletion(action)
+			node = obsast.NewPlugTasksOnCompletion(action)
 		default:
 			panic("unknown emoji with on completion action")
 		}
@@ -522,18 +521,18 @@ func NewPlugTasksHTMLRenderer() *PlugTasksHTMLRenderer {
 
 // RegisterFuncs implements [renderer.NodeRenderer].
 func (r *PlugTasksHTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
-	reg.Register(ast.KindPlugTasksStatus, entering(r.renderStatus))
-	reg.Register(ast.KindPlugTasksPrio, entering(r.renderPrio))
-	reg.Register(ast.KindPlugTasksID, entering(r.renderID))
-	reg.Register(ast.KindPlugTasksDependsOn, entering(r.renderDependsOn))
-	reg.Register(ast.KindPlugTasksDue, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksScheduled, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksStart, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksCreated, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksDone, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksCancelled, entering(r.renderDate))
-	reg.Register(ast.KindPlugTasksRecurring, entering(r.renderRecurring))
-	reg.Register(ast.KindPlugTasksOnCompletion, entering(r.renderOnCompletion))
+	reg.Register(obsast.KindPlugTasksStatus, entering(r.renderStatus))
+	reg.Register(obsast.KindPlugTasksPrio, entering(r.renderPrio))
+	reg.Register(obsast.KindPlugTasksID, entering(r.renderID))
+	reg.Register(obsast.KindPlugTasksDependsOn, entering(r.renderDependsOn))
+	reg.Register(obsast.KindPlugTasksDue, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksScheduled, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksStart, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksCreated, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksDone, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksCancelled, entering(r.renderDate))
+	reg.Register(obsast.KindPlugTasksRecurring, entering(r.renderRecurring))
+	reg.Register(obsast.KindPlugTasksOnCompletion, entering(r.renderOnCompletion))
 }
 
 // PlugTasksCheckboxAttributeFilter defines attribute names which <input type=checkbox>
@@ -541,7 +540,7 @@ func (r *PlugTasksHTMLRenderer) RegisterFuncs(reg renderer.NodeRendererFuncRegis
 var PlugTasksCheckboxAttributeFilter = html.GlobalAttributeFilter //nolint:gochecknoglobals // By design.
 
 func (r *PlugTasksHTMLRenderer) renderStatus(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksStatus)
+	n := node.(*obsast.PlugTasksStatus)
 
 	if n.IsChecked() {
 		_, _ = w.WriteString(`<input checked="" disabled="" type="checkbox"`)
@@ -562,25 +561,25 @@ func (r *PlugTasksHTMLRenderer) renderStatus(w util.BufWriter, _ []byte, node ga
 }
 
 func (*PlugTasksHTMLRenderer) renderPrio(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksPrio)
+	n := node.(*obsast.PlugTasksPrio)
 
-	if n.Prio == ast.PlugTasksPrioDefault {
+	if n.Prio == obsast.PlugTasksPrioDefault {
 		return gast.WalkContinue, nil
 	}
 
 	_ = w.WriteByte(' ')
 	switch n.Prio {
-	case ast.PlugTasksPrioLowest:
+	case obsast.PlugTasksPrioLowest:
 		_, _ = w.WriteString(plugTasksPrioLowestEmoji)
-	case ast.PlugTasksPrioLow:
+	case obsast.PlugTasksPrioLow:
 		_, _ = w.WriteString(plugTasksPrioLowEmoji)
-	case ast.PlugTasksPrioDefault: // Make linter exhaustive happy without disabling it.
+	case obsast.PlugTasksPrioDefault: // Make linter exhaustive happy without disabling it.
 		panic("never here")
-	case ast.PlugTasksPrioMedium:
+	case obsast.PlugTasksPrioMedium:
 		_, _ = w.WriteString(plugTasksPrioMediumEmoji)
-	case ast.PlugTasksPrioHigh:
+	case obsast.PlugTasksPrioHigh:
 		_, _ = w.WriteString(plugTasksPrioHighEmoji)
-	case ast.PlugTasksPrioHighest:
+	case obsast.PlugTasksPrioHighest:
 		_, _ = w.WriteString(plugTasksPrioHighestEmoji)
 	default:
 		panic(fmt.Sprintf("unknown node priority: %v", n.Prio))
@@ -590,7 +589,7 @@ func (*PlugTasksHTMLRenderer) renderPrio(w util.BufWriter, _ []byte, node gast.N
 }
 
 func (*PlugTasksHTMLRenderer) renderID(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksID)
+	n := node.(*obsast.PlugTasksID)
 
 	_ = w.WriteByte(' ')
 	_, _ = w.WriteString(plugTasksIDEmoji)
@@ -601,7 +600,7 @@ func (*PlugTasksHTMLRenderer) renderID(w util.BufWriter, _ []byte, node gast.Nod
 }
 
 func (*PlugTasksHTMLRenderer) renderDependsOn(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksDependsOn)
+	n := node.(*obsast.PlugTasksDependsOn)
 
 	_ = w.WriteByte(' ')
 	_, _ = w.WriteString(plugTasksDependsOnEmoji)
@@ -623,22 +622,22 @@ func (*PlugTasksHTMLRenderer) renderDate(w util.BufWriter, _ []byte, node gast.N
 	var date time.Time
 	_ = w.WriteByte(' ')
 	switch n := node.(type) {
-	case *ast.PlugTasksDue:
+	case *obsast.PlugTasksDue:
 		_, _ = w.WriteString(plugTasksDueEmoji)
 		date = n.Date
-	case *ast.PlugTasksScheduled:
+	case *obsast.PlugTasksScheduled:
 		_, _ = w.WriteString(plugTasksScheduledEmoji)
 		date = n.Date
-	case *ast.PlugTasksStart:
+	case *obsast.PlugTasksStart:
 		_, _ = w.WriteString(plugTasksStartEmoji)
 		date = n.Date
-	case *ast.PlugTasksCreated:
+	case *obsast.PlugTasksCreated:
 		_, _ = w.WriteString(plugTasksCreatedEmoji)
 		date = n.Date
-	case *ast.PlugTasksDone:
+	case *obsast.PlugTasksDone:
 		_, _ = w.WriteString(plugTasksDoneEmoji)
 		date = n.Date
-	case *ast.PlugTasksCancelled:
+	case *obsast.PlugTasksCancelled:
 		_, _ = w.WriteString(plugTasksCancelledEmoji)
 		date = n.Date
 	default:
@@ -651,7 +650,7 @@ func (*PlugTasksHTMLRenderer) renderDate(w util.BufWriter, _ []byte, node gast.N
 }
 
 func (*PlugTasksHTMLRenderer) renderRecurring(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksRecurring)
+	n := node.(*obsast.PlugTasksRecurring)
 
 	_ = w.WriteByte(' ')
 	_, _ = w.WriteString(plugTasksRecurringEmoji)
@@ -662,7 +661,7 @@ func (*PlugTasksHTMLRenderer) renderRecurring(w util.BufWriter, _ []byte, node g
 }
 
 func (*PlugTasksHTMLRenderer) renderOnCompletion(w util.BufWriter, _ []byte, node gast.Node) (gast.WalkStatus, error) {
-	n := node.(*ast.PlugTasksOnCompletion)
+	n := node.(*obsast.PlugTasksOnCompletion)
 
 	if !n.IsValid() {
 		return gast.WalkContinue, nil

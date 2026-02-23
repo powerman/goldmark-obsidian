@@ -22,7 +22,7 @@ func appendClass(n gast.Node, class []byte) {
 		n.SetAttribute(attrNameClass, bytes.Clone(class))
 	} else {
 		value := val.([]byte)
-		for _, existing := range bytes.Fields(value) {
+		for existing := range bytes.FieldsSeq(value) {
 			if bytes.Equal(class, existing) {
 				return
 			}

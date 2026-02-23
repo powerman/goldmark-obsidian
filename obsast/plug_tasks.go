@@ -1,4 +1,4 @@
-package ast
+package obsast
 
 import (
 	"fmt"
