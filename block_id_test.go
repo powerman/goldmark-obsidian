@@ -12,6 +12,7 @@ import (
 )
 
 func TestBlockID(t *testing.T) {
+	t.Parallel()
 	markdown := goldmark.New(
 		goldmark.WithExtensions(obsidian.NewBlockID()),
 		goldmark.WithRendererOptions(
@@ -22,6 +23,7 @@ func TestBlockID(t *testing.T) {
 }
 
 func TestBlockIDWithAutoHeadingID(t *testing.T) {
+	t.Parallel()
 	markdown := goldmark.New(
 		goldmark.WithExtensions(obsidian.NewBlockID()),
 		goldmark.WithParserOptions(

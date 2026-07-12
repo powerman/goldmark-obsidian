@@ -51,6 +51,9 @@ func (t PlugTasksStatusType) IsDone() bool {
 	panic(fmt.Sprintf("invalid PlugTasksStatusType: %v", t))
 }
 
+// Field names used in Dump methods.
+const plugTasksDateField = "Date"
+
 // A PlugTasksStatus represents a checkbox of an Obsidian plugin Tasks's task.
 type PlugTasksStatus struct {
 	gast.BaseInline
@@ -236,7 +239,7 @@ func (n *PlugTasksDue) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksDue) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }
@@ -271,7 +274,7 @@ func (n *PlugTasksScheduled) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksScheduled) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }
@@ -306,7 +309,7 @@ func (n *PlugTasksStart) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksStart) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }
@@ -341,7 +344,7 @@ func (n *PlugTasksCreated) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksCreated) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }
@@ -376,7 +379,7 @@ func (n *PlugTasksDone) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksDone) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }
@@ -411,7 +414,7 @@ func (n *PlugTasksCancelled) IsValid() bool {
 // Dump implements [ast.Node].
 func (n *PlugTasksCancelled) Dump(source []byte, level int) {
 	m := map[string]string{
-		"Date": n.Date.Format(time.DateOnly),
+		plugTasksDateField: n.Date.Format(time.DateOnly),
 	}
 	gast.DumpHelper(n, source, level, m, nil)
 }

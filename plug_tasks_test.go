@@ -12,6 +12,7 @@ import (
 )
 
 func TestPlugTasks(t *testing.T) {
+	t.Parallel()
 	markdown := goldmark.New(
 		goldmark.WithRendererOptions(
 			html.WithUnsafe(),
@@ -29,6 +30,7 @@ func TestPlugTasks(t *testing.T) {
 }
 
 func TestPlugTasks_Default(t *testing.T) {
+	t.Parallel()
 	markdown := goldmark.New(
 		goldmark.WithRendererOptions(
 			html.WithXHTML(),
@@ -42,6 +44,7 @@ func TestPlugTasks_Default(t *testing.T) {
 }
 
 func TestPlugTasks_Options(t *testing.T) {
+	t.Parallel()
 	markdown := goldmark.New(
 		goldmark.WithRendererOptions(
 			html.WithUnsafe(),
